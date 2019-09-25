@@ -8,9 +8,12 @@ namespace rpg_shop_simulator_assement
 {
     class Player
     {
-        int gold;
+        int gold = 100;
         
-        public void playerinventory()
+
+        
+
+        public void Playerinventory()
         {
             
             Console.WriteLine("Inventory menu");

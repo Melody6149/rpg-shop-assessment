@@ -8,5 +8,6 @@ namespace rpg_shop_simulator_assement
 {
     class Shop
     {
+
     }
 }
