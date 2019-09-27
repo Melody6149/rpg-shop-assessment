@@ -10,8 +10,12 @@ namespace rpg_shop_simulator_assement
     {
         private int _damage;
 
+        int GetDamage()
+        {
+            return _damage;
+        }
 
-        public Weapons(string name, int cost, int damage) : base(name,cost)
+        public Weapons(string name, int cost, int damage, string description) : base(name,cost,description)
         {
             _damage = damage;
 

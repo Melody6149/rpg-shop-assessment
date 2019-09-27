@@ -8,19 +8,19 @@ namespace rpg_shop_simulator_assement
 {
     class Inventory
     {
-        private object[] _list;
-        
+        private Item[] _list;
 
-        public  Inventory()
+
+        public Inventory()
         {
-            _list = new object[0];
+            _list = new Item[0];
         }
 
 
 
         public virtual void remove(int index)
         {
-            object[] newlist = new object[_list.Length - 1];
+            Item[] newlist = new Item[_list.Length - 1];
             int j = 0;
             for (int i = 0; i < _list.Length; i++)
             {
@@ -29,7 +29,7 @@ namespace rpg_shop_simulator_assement
                     newlist[j] = _list[i];
                     j++;
                 }
-               
+
             }
             _list = newlist;
         }
@@ -37,7 +37,7 @@ namespace rpg_shop_simulator_assement
 
         public virtual void Add(Item value)
         {
-            object[] newlist = new object[_list.Length + 1];
+            Item[] newlist = new Item[_list.Length + 1];
 
             for (int i = 0; i < _list.Length; i++)
             {
@@ -48,7 +48,15 @@ namespace rpg_shop_simulator_assement
 
         }
 
-        
+        public void Openinventory()
+        {
+            for (int i = 0; i < _list.Length; i++ )
+            {
+
+                Console.Write("\n" + (i + 1) + ": ");
+                _list[i].Printitem();
+            }
+        }
         
     }
 }

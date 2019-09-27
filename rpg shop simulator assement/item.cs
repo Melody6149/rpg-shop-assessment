@@ -10,22 +10,28 @@ namespace rpg_shop_simulator_assement
     {
         protected int _cost;
         protected string _name;
+        protected string _description;
 
-        public Item(string name, int cost)
+        public Item(string name, int cost, string description)
         {
             _name = name;
             _cost = cost;
-
+            _description = description;
         }
         public Item()
         {
 
         }
-        public void Printinventory()
+        public void Printitem()
         {
-            Console.WriteLine();
+            string name = _name;
+            string description = _description;
+            int cost = _cost;
+
+            Console.Write(name + "\n" + description + "\nThis Item cost " + cost + " Gold.");
         }
 
+        
         
     }
 }
