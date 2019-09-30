@@ -106,7 +106,7 @@ namespace rpg_shop_simulator_assement
                 shopchoice = Convert.ToInt32(Console.ReadLine());
                 shopchoice = shopchoice - 1;
 
-                if (shopchoice <= PlayerInventory.GetLenth() || shopchoice < 0)
+                if (shopchoice <= PlayerInventory.GetLenth() && shopchoice >= 0)
                 {
 
                     Playergold = Playergold + PlayerInventory.Getcost((shopchoice));
@@ -116,7 +116,7 @@ namespace rpg_shop_simulator_assement
                     PlayerInventory.remove((shopchoice));
                     validchoice = true;
                 }
-                else if (shopchoice > PlayerInventory.GetLenth())
+                else
                 {
                     Console.WriteLine("Please pick a valid choice");
                 }
@@ -154,9 +154,36 @@ namespace rpg_shop_simulator_assement
         {
             Console.WriteLine("Cheat Menu");
             Console.WriteLine("1: Create your own weapon");
-            Console.WriteLine("2: Give or remove gold from player");
-            Console.WriteLine("3: Give or remove gold from shopkeeper");
+            Console.WriteLine("2: Create Your own armor");
+            Console.WriteLine("3: Give or remove gold from player");
+            Console.WriteLine("4: Give or remove gold from shopkeeper");
             choice = Console.ReadLine();
+            if (choice == "1")
+            {
+
+                Console.WriteLine("do you want to add it to player or store inventory");
+                string newname = "";
+                int cost = 0;
+                int damage = 0;
+                string description;
+                Console.WriteLine("Pick a name for the weapon");
+                newname = Console.ReadLine();
+                Console.WriteLine("Type in the cost");
+                cost = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Type in a damage");
+                damage = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Type in a description");
+                description = Console.ReadLine();
+
+                
+                    Weapons addedWeapon = new Weapons(newname, cost, damage, description); //
+                PlayerInventory.Add(addedWeapon);
+            }
+
+            if (choice == "2")
+            {
+
+            }
         }
     }
 }
