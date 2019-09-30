@@ -57,6 +57,19 @@ namespace rpg_shop_simulator_assement
                 _list[i].Printitem();
             }
         }
-        
+        public Item GetItem(int choice)
+        {
+            return _list[(choice)];
+        }
+
+        public int GetLenth()
+        {
+            return _list.Length;
+        }
+
+        public int Getcost(int i)
+        {
+            return _list[i].GetCost();
+        }
     }
 }

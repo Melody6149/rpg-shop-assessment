@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace rpg_shop_simulator_assement
 {
-    class Weapons : Item
+    class Armor : Item
     {
-        private int _damage;
+        private int _defense;
 
-        int GetDamage()
+        int Getdefense()
         {
-            return _damage;
+            return _defense;
         }
 
-        public Weapons(string name, int cost, int damage, string description) : base(name,cost,description)
+        public Armor(string name, int cost, int defense, string description) : base(name, cost, description)
         {
-            _damage = damage;
+            _defense = defense;
 
         }
 
@@ -27,7 +27,7 @@ namespace rpg_shop_simulator_assement
             string description = _description;
             int cost = _cost;
 
-            Console.Write(name + "\n" + description + "\nThis Item cost " + cost + " Gold." + "\nThis item does " + _damage + " Damage.");
+            Console.Write(name + "\n" + description + "\nThis Armor cost " + cost + " Gold." + "\nThis armor has " + _defense + " Defense.");
         }
     }
 }

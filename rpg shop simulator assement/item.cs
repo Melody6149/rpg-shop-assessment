@@ -22,7 +22,12 @@ namespace rpg_shop_simulator_assement
         {
 
         }
-        public void Printitem()
+
+        public int GetCost()
+        {
+            return _cost; //
+        }
+        public virtual void Printitem()
         {
             string name = _name;
             string description = _description;

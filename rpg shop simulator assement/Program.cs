@@ -11,6 +11,7 @@ namespace rpg_shop_simulator_assement
 
         static void Main(string[] args)
         {
+
             Shop shop = new Shop();
             shop.start();
             
