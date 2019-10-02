@@ -10,12 +10,13 @@ namespace rpg_shop_simulator_assement
     {
         private int _damage;
 
+
         int GetDamage()
         {
             return _damage;
         }
 
-        public Weapons(string name, int cost, int damage, string description) : base(name,cost,description)
+        public Weapons(string name, int cost, int damage, string description) : base(name, cost, description)
         {
             _damage = damage;
 
@@ -29,5 +30,14 @@ namespace rpg_shop_simulator_assement
 
             Console.Write(name + "\n" + description + "\nThis Item cost " + cost + " Gold." + "\nThis item does " + _damage + " Damage.");
         }
+        public override string Getitemtype()
+        {
+            return "weapon";
+        }
+        public override int Getstats()
+            {
+            return _damage;
+            }
+        
     }
 }

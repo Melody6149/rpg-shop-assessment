@@ -36,7 +36,22 @@ namespace rpg_shop_simulator_assement
             Console.Write(name + "\n" + description + "\nThis Item cost " + cost + " Gold.");
         }
 
-        
-        
+        public string GetName()
+        {
+            return _name;
+        }
+        public virtual string Getitemtype()
+        {
+            return "";
+        }
+
+        public virtual int Getstats()
+        {
+            return 1;
+        }
+        public string getdescription()
+        {
+            return _description;
+        }
     }
 }

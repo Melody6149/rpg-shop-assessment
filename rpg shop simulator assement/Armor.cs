@@ -26,8 +26,17 @@ namespace rpg_shop_simulator_assement
             string name = _name;
             string description = _description;
             int cost = _cost;
-
             Console.Write(name + "\n" + description + "\nThis Armor cost " + cost + " Gold." + "\nThis armor has " + _defense + " Defense.");
+        }
+
+        public override string Getitemtype()
+        {
+            return "Armor";
+        }
+
+        public override int Getstats()
+        {
+            return _defense;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,6 +71,88 @@ namespace rpg_shop_simulator_assement
         public int Getcost(int i)
         {
             return _list[i].GetCost();
+        }
+
+        public void Clear()
+        {
+            _list = new Item[0];
+        }
+
+        public void Saving(string path, Shop shop)
+        {
+            StreamWriter writer = File.CreateText(path);
+
+            if (path == "PlayerInventory.txt")
+            {
+                writer.WriteLine(shop.PlayerGold);
+            }
+            if (path == "ShopInventory.txt")
+            {
+                writer.WriteLine(shop.ShopGold);
+            }
+            // Create a writer for file at path
+
+            for (int i = 0; i < _list.Length; i++)
+            {
+                writer.WriteLine(_list[i].Getitemtype()); //used for loading to know which constructor to use
+                writer.WriteLine(_list[i].GetName());
+                writer.WriteLine(_list[i].GetCost());
+                writer.WriteLine(_list[i].Getstats());
+                writer.WriteLine(_list[i].getdescription());
+                
+            }
+            writer.Close();
+        }
+        public void Loading(string path, Shop shop)
+        {
+
+            string temp;
+            string name;
+            int cost;
+            int stats;
+            string description;
+            bool Loading = true;
+            if (File.Exists(path))
+            {
+                Clear();
+                StreamReader reader = File.OpenText(path);
+
+                if (path == "PlayerInventory.txt")
+                {
+                    shop.PlayerGold = Convert.ToInt32(reader.ReadLine());
+                }
+                if (path == "ShopInventory.txt")
+                {
+                    shop.ShopGold = Convert.ToInt32(reader.ReadLine());
+                }
+                while (Loading)
+                {
+                    
+                    temp = reader.ReadLine();
+                    name = reader.ReadLine();
+                    cost = Convert.ToInt32(reader.ReadLine());
+                    stats = Convert.ToInt32(reader.ReadLine());
+                    description = reader.ReadLine();
+
+                    if (temp == "weapon")
+                    {
+                        Weapons weapon = new Weapons(name, cost, stats, description);
+                        Add(weapon);
+                    }
+                    if (temp == "Armor")
+                    {
+                        Armor armor = new Armor(name, cost, stats, description);
+                        Add(armor);
+                    }
+                    else if (temp == null)
+                    {
+                        Loading = false;
+                        reader.Close();
+                    }
+                }
+                
+            }
+
         }
     }
 }
