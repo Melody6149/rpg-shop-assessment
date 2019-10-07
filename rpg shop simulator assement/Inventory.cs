@@ -90,7 +90,8 @@ namespace rpg_shop_simulator_assement
             {
                 writer.WriteLine(shop.ShopGold);
             }
-            // Create a writer for file at path
+            // the above code is used to know if to save player gold or shop gold
+            
 
             for (int i = 0; i < _list.Length; i++)
             {
@@ -117,11 +118,11 @@ namespace rpg_shop_simulator_assement
                 Clear();
                 StreamReader reader = File.OpenText(path);
 
-                if (path == "PlayerInventory.txt")
+                if (path == "PlayerInventory.txt" || path == "StarterPlayerInventory.txt")
                 {
                     shop.PlayerGold = Convert.ToInt32(reader.ReadLine());
                 }
-                if (path == "ShopInventory.txt")
+                if (path == "ShopInventory.txt" || path == "StarterShopInventory.txt")
                 {
                     shop.ShopGold = Convert.ToInt32(reader.ReadLine());
                 }
@@ -133,6 +134,7 @@ namespace rpg_shop_simulator_assement
                     cost = Convert.ToInt32(reader.ReadLine());
                     stats = Convert.ToInt32(reader.ReadLine());
                     description = reader.ReadLine();
+                    
 
                     if (temp == "weapon")
                     {

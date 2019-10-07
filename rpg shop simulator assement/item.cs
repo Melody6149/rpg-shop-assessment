@@ -29,11 +29,7 @@ namespace rpg_shop_simulator_assement
         }
         public virtual void Printitem()
         {
-            string name = _name;
-            string description = _description;
-            int cost = _cost;
-
-            Console.Write(name + "\n" + description + "\nThis Item cost " + cost + " Gold.");
+           
         }
 
         public string GetName()

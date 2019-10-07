@@ -15,7 +15,6 @@ namespace rpg_shop_simulator_assement
             Shop shop = new Shop();
             shop.start();
             
-            Console.ReadKey();
         }
     }
 }

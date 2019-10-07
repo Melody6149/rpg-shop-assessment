@@ -24,8 +24,7 @@ namespace rpg_shop_simulator_assement
 
         //Name  cost damage or defense.  Description
         Weapons test = new Weapons("test", 1, 1, "you should not be seeing this after i am done making this program"); // test weapon will name it later
-        Weapons sword = new Weapons("Sword", 20, 30, "Just a normal Sword.");
-        Armor Armor = new Armor("Armor", 20, 30, "starter armor");
+        
 
 
 
@@ -33,9 +32,10 @@ namespace rpg_shop_simulator_assement
 
         public void start()
         {
-            PlayerInventory.Add(test);
-            PlayerInventory.Add(Armor);
-            ShopInventory.Add(sword);
+            PlayerInventory.Loading("StarterPlayerInventory.txt", this);
+            ShopInventory.Loading("StarterShopInventory.txt", this);
+            //Gets the starting inventory and gold from both txt files
+
             while (shop)
             {
 
@@ -73,7 +73,7 @@ namespace rpg_shop_simulator_assement
 
                 else if (choice == "5")
                 {
-                    shop = false;
+                    shop = false; //sets shop to false so it can quit the shop
                 }
                 else if (choice == "6")
                 {
@@ -84,25 +84,34 @@ namespace rpg_shop_simulator_assement
 
         public void OpenShop() //used for buying and selling weapons. later there will be a hidden option to add weapons and other items
         {
-
+            validchoice = false;
             Console.WriteLine("\n");
-
-            Console.WriteLine("Would you like to buy or sell.");
-            Console.WriteLine("The shop has " + _shopgold + " Gold.");
-            Console.WriteLine("You have has " + _Playergold + " Gold.");
-            Console.WriteLine("1: Buy");
-            Console.WriteLine("2: Sell");
-            string choice = "";
-            choice = Console.ReadLine();
-            if (choice == "1")
+            while (!validchoice)
             {
-                ShopInventory.Openinventory();
-                Buy();
-            }
-            if (choice == "2")
-            {
-                PlayerInventory.Openinventory();
-                Sell();
+                Console.WriteLine("Would you like to buy or sell.");
+                Console.WriteLine("The shop has " + _shopgold + " Gold.");
+                Console.WriteLine("You have has " + _Playergold + " Gold.");
+                Console.WriteLine("1: Buy");
+                Console.WriteLine("2: Sell");
+                Console.WriteLine("3: Exit");
+                string choice = "";
+                choice = Console.ReadLine();
+                if (choice == "1")
+                {
+                    ShopInventory.Openinventory();
+                    Buy();
+                    
+                }
+                if (choice == "2")
+                {
+                    PlayerInventory.Openinventory();
+                    Sell();
+                }
+                if (choice == "3")
+                {
+                    Console.WriteLine();
+                    validchoice = true;
+                }
             }
             Console.WriteLine("\n");
         }
@@ -128,10 +137,10 @@ namespace rpg_shop_simulator_assement
                     validchoice = true;
                 }
 
-                else if (shopchoice <= PlayerInventory.GetLenth() && shopchoice >= 0)
+                else if (shopchoice < PlayerInventory.GetLenth() && shopchoice >= 0)
                 {
 
-                    if (_shopgold > PlayerInventory.Getcost(shopchoice))
+                    if (_shopgold >= PlayerInventory.Getcost(shopchoice))
                     {
                         _Playergold = _Playergold + PlayerInventory.Getcost(shopchoice);
                         _shopgold = _shopgold - PlayerInventory.Getcost((shopchoice));
@@ -173,7 +182,7 @@ namespace rpg_shop_simulator_assement
                 {
                     validchoice = true;
                 }
-                else if (shopchoice <= ShopInventory.GetLenth() && shopchoice >= 0)
+                else if (shopchoice < ShopInventory.GetLenth() && shopchoice >= 0)
                 {
 
                     if (_Playergold >= ShopInventory.Getcost(shopchoice))
@@ -198,54 +207,87 @@ namespace rpg_shop_simulator_assement
         }
         void Cheats()
         {
-            Console.WriteLine("Cheat Menu");
-            Console.WriteLine("1: Create your own weapon");
-            Console.WriteLine("2: Create Your own armor");
-            Console.WriteLine("3: Give or remove gold from player");
-            Console.WriteLine("4: Give or remove gold from shopkeeper");
             string cheatchoice = "";
-            choice = Console.ReadLine();
+            validchoice = false;
+            while (!validchoice)
+            {
+                Console.WriteLine("Cheat Menu");
+                Console.WriteLine("1: Create your own weapon");
+                Console.WriteLine("2: Create Your own armor");
+                Console.WriteLine("3: Give or remove gold from player");
+                Console.WriteLine("4: Give or remove gold from shopkeeper");
+                Console.WriteLine("5: Exit cheat menu");
+                
+                choice = Console.ReadLine();
+                if (choice == "1" || choice == "2" || choice == "3" || choice == "4")
+                {
+                    validchoice = true;
+                }
+                if (choice == "5")
+                {
+                    validchoice = true;
+                    Console.WriteLine("");
+                }
+                else
+                {
+                    Console.WriteLine("please pick a valid choice");
+                }
+            }
             if (choice == "1")
             {
-               
-                Console.WriteLine("do you want to add it to player or store inventory");
-                Console.WriteLine("1: PLayer");
-                Console.WriteLine("2: Shop");
-                cheatchoice = Console.ReadLine();
-                Console.WriteLine("Please make sure to use numbers for cost and damage or it will crash");
-                if (cheatchoice == "1")
+                validchoice = false;
+                while (!validchoice)
+                {
+                    Console.WriteLine("do you want to add it to player or store inventory");
+                    Console.WriteLine("1: PLayer");
+                    Console.WriteLine("2: Shop");
+                    Console.WriteLine("3: Exit the cheat menu");
+                    cheatchoice = Console.ReadLine();
+                    if(cheatchoice == "1" || cheatchoice == "2")
                     {
-                    string newname = "";
-                    int cost = 0;
-                    int damage = 0;
-                    string description;
-                    Console.WriteLine("Pick a name for the weapon");
-                    newname = Console.ReadLine();
+                        validchoice = true;
+                    }
+                    if(cheatchoice == "3")
+                    {
+                        validchoice = true;
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("");
+                    }
+                }
+                Console.WriteLine("Please make sure to use numbers for cost and damage or it will crash");
+
+                string newname = "";
+                int cost = -1;
+                int damage = 0;
+                string description;
+                Console.WriteLine("Pick a name for the weapon");
+                newname = Console.ReadLine();
+                while (cost < 0)
+                {
                     Console.WriteLine("Type in the cost");
                     cost = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Type in a damage");
-                    damage = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Type in a description");
-                    description = Console.ReadLine();
-                    Weapons addedWeapon = new Weapons(newname, cost, damage, description); 
+                    if (cost < 0)
+                    {
+                        Console.WriteLine("Type in a positive number");
+                    }
+                }
+                Console.WriteLine("Type in a damage");
+                damage = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Type in a description");
+                description = Console.ReadLine();
+                Weapons addedWeapon = new Weapons(newname, cost, damage, description);
+                if (cheatchoice == "1")
+                    {
+                
                     PlayerInventory.Add(addedWeapon);
                 }
                 choice = Console.ReadLine();
                 if (cheatchoice == "2")
                 {
-                    string newname = "";
-                    int cost = 0;
-                    int damage = 0;
-                    string description;
-                    Console.WriteLine("Pick a name for the weapon");
-                    newname = Console.ReadLine();
-                    Console.WriteLine("Type in the cost");
-                    cost = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Type in a damage");
-                    damage = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Type in a description");
-                    description = Console.ReadLine();
-                    Weapons addedWeapon = new Weapons(newname, cost, damage, description);
+                    
                     ShopInventory.Add(addedWeapon);
                 }
 
@@ -256,55 +298,50 @@ namespace rpg_shop_simulator_assement
                 Console.WriteLine("do you want to add it to player or store inventory");
                 Console.WriteLine("1: PLayer");
                 Console.WriteLine("2: Shop");
-                choice = Console.ReadLine();
+                cheatchoice = Console.ReadLine();
                 Console.WriteLine("Please make sure to use numbers for cost and defense or it will crash");
-                if (cheatchoice == "1")
+
+                string newname = "";
+                int cost = -1;
+                int damage = 0;
+                string description;
+                Console.WriteLine("Pick a name for the Armor");
+                newname = Console.ReadLine();
+                while (cost < 0)
                 {
-                    string newname = "";
-                    int cost = 0;
-                    int damage = 0;
-                    string description;
-                    Console.WriteLine("Pick a name for the Armor");
-                    newname = Console.ReadLine();
                     Console.WriteLine("Type in the cost");
                     cost = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Type in a defense");
-                    damage = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Type in a description");
-                    description = Console.ReadLine();
-                    Armor addedWeapon = new Armor(newname, cost, damage, description);
-                    PlayerInventory.Add(addedWeapon);
+                    if (cost < 0)
+                    {
+                        Console.WriteLine("Type in a positive number");
+                    }
+                }
+                Console.WriteLine("Type in a defense");
+                damage = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Type in a description");
+                description = Console.ReadLine();
+                Armor addedWeapon = new Armor(newname, cost, damage, description);
+                if (cheatchoice == "1")
+                {
+                   PlayerInventory.Add(addedWeapon);
                 }
                 choice = Console.ReadLine();
                 if (cheatchoice == "2")
                 {
-                    string newname = "";
-                    int cost = 0;
-                    int damage = 0;
-                    string description;
-                    Console.WriteLine("Pick a name for the Armor");
-                    newname = Console.ReadLine();
-                    Console.WriteLine("Type in the cost");
-                    cost = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Type in a defense");
-                    damage = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Type in a description");
-                    description = Console.ReadLine();
-                    Armor addedWeapon = new Armor(newname, cost, damage, description);
-                    ShopInventory.Add(addedWeapon);
+                   ShopInventory.Add(addedWeapon);
                 }
             }
             if (choice == "3")
             {
                 int cheatgold;
-                Console.WriteLine("type in a number for amount of gold\n Type in a negative number to remove gold");
+                Console.WriteLine("type in a number for amount of gold\nType in a negative number to remove gold");
                 cheatgold = Convert.ToInt32(Console.ReadLine());
                 _Playergold = _Playergold + cheatgold;
             }
             if (choice == "4")
             {
                 int cheatgold;
-                Console.WriteLine("type in a number for amount of gold\n Type in a negative number to remove gold");
+                Console.WriteLine("type in a number for amount of gold\nType in a negative number to remove gold");
                 cheatgold = Convert.ToInt32(Console.ReadLine());
                 _shopgold = _shopgold + cheatgold;
             }
