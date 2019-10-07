@@ -98,14 +98,27 @@ namespace rpg_shop_simulator_assement
                 choice = Console.ReadLine();
                 if (choice == "1")
                 {
-                    ShopInventory.Openinventory();
-                    Buy();
-                    
+                    if (ShopInventory.GetLenth() > 0)
+                    {
+                        ShopInventory.Openinventory();
+                        Buy();
+                    }
+                    else;
+                    {
+                        Console.WriteLine("There is nothing to buy\n");
+                    }
                 }
                 if (choice == "2")
                 {
-                    PlayerInventory.Openinventory();
-                    Sell();
+                    if (PlayerInventory.GetLenth() > 0)
+                    {
+                        PlayerInventory.Openinventory();
+                        Sell();
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have nothing to sale\n");
+                    }
                 }
                 if (choice == "3")
                 {
@@ -174,6 +187,7 @@ namespace rpg_shop_simulator_assement
                 Console.WriteLine("Type in the number for the item you want");
                 Console.WriteLine("Type in 0 to exit");
 
+
                 shopchoice = Convert.ToInt32(Console.ReadLine());
                 shopchoice = shopchoice - 1;
                 
@@ -223,7 +237,7 @@ namespace rpg_shop_simulator_assement
                 {
                     validchoice = true;
                 }
-                if (choice == "5")
+                else if (choice == "5")
                 {
                     validchoice = true;
                     Console.WriteLine("");
@@ -250,7 +264,7 @@ namespace rpg_shop_simulator_assement
                     if(cheatchoice == "3")
                     {
                         validchoice = true;
-                        break;
+                        
                     }
                     else
                     {
@@ -337,6 +351,11 @@ namespace rpg_shop_simulator_assement
                 Console.WriteLine("type in a number for amount of gold\nType in a negative number to remove gold");
                 cheatgold = Convert.ToInt32(Console.ReadLine());
                 _Playergold = _Playergold + cheatgold;
+                if(PlayerGold < 0)
+                {
+                    PlayerGold = 0;
+                }
+
             }
             if (choice == "4")
             {
@@ -344,6 +363,10 @@ namespace rpg_shop_simulator_assement
                 Console.WriteLine("type in a number for amount of gold\nType in a negative number to remove gold");
                 cheatgold = Convert.ToInt32(Console.ReadLine());
                 _shopgold = _shopgold + cheatgold;
+                if(ShopGold < 0)
+                {
+                    ShopGold = 0;
+                }
             }
         }
 
