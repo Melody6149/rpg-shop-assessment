@@ -13,7 +13,7 @@ namespace rpg_shop_simulator_assement
     {
         int shopchoice = 0; // used for shop to know which item in the array to pick
         private int _shopgold = 50; // stores shop gold
-        private int _Playergold = 50; // stores player gold
+        private int _playergold = 50; // stores player gold
         bool shop = true; //used to know when to close program
         string choice = "0"; // used to store the players choice
 
@@ -23,17 +23,18 @@ namespace rpg_shop_simulator_assement
         bool validchoice = false;
 
         //Name  cost damage or defense.  Description
-        Weapons test = new Weapons("test", 1, 1, "you should not be seeing this after i am done making this program"); // test weapon will name it later
-        
-
-
-
+        Weapons test = new Weapons("sword", 1, 1, "begginer sword"); // test weapon will name it later
+        Weapons Sword = new Weapons("Sword", 20, 30, "Just a normal Sword");
+        Armor starterarmor = new Armor("Starter armor", 30, 30, "starting armor");
 
 
         public void start()
         {
-            PlayerInventory.Loading("StarterPlayerInventory.txt", this);
-            ShopInventory.Loading("StarterShopInventory.txt", this);
+            PlayerInventory.Add(test);
+            PlayerInventory.Add(starterarmor);
+            ShopInventory.Add(Sword);
+            PlayerInventory.Loading("PlayerInventory.txt", this);
+            ShopInventory.Loading("ShopInventory.txt", this);
             //Gets the starting inventory and gold from both txt files
 
             while (shop)
@@ -55,6 +56,7 @@ namespace rpg_shop_simulator_assement
 
                 if (choice == "2")
                 {
+                    Console.WriteLine("\nYou have " + _playergold + " Gold.");
                     PlayerInventory.Openinventory();
                     Console.WriteLine("\n");
 
@@ -90,7 +92,7 @@ namespace rpg_shop_simulator_assement
             {
                 Console.WriteLine("Would you like to buy or sell.");
                 Console.WriteLine("The shop has " + _shopgold + " Gold.");
-                Console.WriteLine("You have has " + _Playergold + " Gold.");
+                Console.WriteLine("You have has " + _playergold + " Gold.");
                 Console.WriteLine("1: Buy");
                 Console.WriteLine("2: Sell");
                 Console.WriteLine("3: Exit");
@@ -103,7 +105,7 @@ namespace rpg_shop_simulator_assement
                         ShopInventory.Openinventory();
                         Buy();
                     }
-                    else;
+                    else
                     {
                         Console.WriteLine("There is nothing to buy\n");
                     }
@@ -155,7 +157,7 @@ namespace rpg_shop_simulator_assement
 
                     if (_shopgold >= PlayerInventory.Getcost(shopchoice))
                     {
-                        _Playergold = _Playergold + PlayerInventory.Getcost(shopchoice);
+                        _playergold = _playergold + PlayerInventory.Getcost(shopchoice);
                         _shopgold = _shopgold - PlayerInventory.Getcost((shopchoice));
                         Item temp = PlayerInventory.GetItem(shopchoice);
                         ShopInventory.Add(temp);
@@ -199,9 +201,9 @@ namespace rpg_shop_simulator_assement
                 else if (shopchoice < ShopInventory.GetLenth() && shopchoice >= 0)
                 {
 
-                    if (_Playergold >= ShopInventory.Getcost(shopchoice))
+                    if (_playergold >= ShopInventory.Getcost(shopchoice))
                     {
-                        _Playergold = _Playergold - ShopInventory.Getcost((shopchoice));
+                        _playergold = _playergold - ShopInventory.Getcost((shopchoice));
                         _shopgold = _shopgold + ShopInventory.Getcost((shopchoice));
                         Item temp = ShopInventory.GetItem(shopchoice);
                         PlayerInventory.Add(temp);
@@ -253,7 +255,7 @@ namespace rpg_shop_simulator_assement
                 while (!validchoice)
                 {
                     Console.WriteLine("do you want to add it to player or store inventory");
-                    Console.WriteLine("1: PLayer");
+                    Console.WriteLine("1: Player");
                     Console.WriteLine("2: Shop");
                     Console.WriteLine("3: Exit the cheat menu");
                     cheatchoice = Console.ReadLine();
@@ -350,7 +352,7 @@ namespace rpg_shop_simulator_assement
                 int cheatgold;
                 Console.WriteLine("type in a number for amount of gold\nType in a negative number to remove gold");
                 cheatgold = Convert.ToInt32(Console.ReadLine());
-                _Playergold = _Playergold + cheatgold;
+                _playergold = _playergold + cheatgold;
                 if(PlayerGold < 0)
                 {
                     PlayerGold = 0;
@@ -376,11 +378,11 @@ namespace rpg_shop_simulator_assement
         {
             get
             {
-                return _Playergold;
+                return _playergold;
             }
             set
             {
-                _Playergold = value;
+                _playergold = value;
             }
         }
         public int ShopGold

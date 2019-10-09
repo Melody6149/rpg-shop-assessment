@@ -107,22 +107,23 @@ namespace rpg_shop_simulator_assement
         public void Loading(string path, Shop shop)
         {
 
-            string temp;
-            string name;
+            string temp; // used to know if item is armor or weapon
+            string name; 
             int cost;
             int stats;
             string description;
             bool Loading = true;
             if (File.Exists(path))
             {
+                
                 Clear();
                 StreamReader reader = File.OpenText(path);
 
-                if (path == "PlayerInventory.txt" || path == "StarterPlayerInventory.txt")
+                if (path == "PlayerInventory.txt")
                 {
                     shop.PlayerGold = Convert.ToInt32(reader.ReadLine());
                 }
-                if (path == "ShopInventory.txt" || path == "StarterShopInventory.txt")
+                if (path == "ShopInventory.txt")
                 {
                     shop.ShopGold = Convert.ToInt32(reader.ReadLine());
                 }

@@ -18,10 +18,6 @@ namespace rpg_shop_simulator_assement
             _cost = cost;
             _description = description;
         }
-        public Item()
-        {
-
-        }
 
         public int GetCost()
         {
