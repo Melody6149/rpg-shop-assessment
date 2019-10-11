@@ -54,7 +54,7 @@ namespace rpg_shop_simulator_assement
             for (int i = 0; i < _list.Length; i++ )
             {
 
-                Console.Write("\n" + (i + 1) + ": ");
+                Console.Write("\n" + (i) + ": ");
                 _list[i].Printitem();
             }
         }

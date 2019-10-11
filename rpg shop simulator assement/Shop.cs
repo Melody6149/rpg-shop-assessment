@@ -133,21 +133,24 @@ namespace rpg_shop_simulator_assement
 
         void Sell() // add a way to stop crashing 
         {
-            Console.WriteLine("Type in the number for the item you want");
-            Console.WriteLine("Type in 0 to exit");
-            Console.WriteLine("");
+            
             validchoice = false;
             while (!validchoice)
             {
+                Console.WriteLine("Type in the number for the item you want");
+                Console.WriteLine("Type in -1 to exit");
+                Console.WriteLine("");
 
-                shopchoice = Convert.ToInt32(Console.ReadLine());
+
+                bool validInput = Int32.TryParse(Console.ReadLine(), out shopchoice);
+
+                if (validInput == false)
+                {
+                    Console.WriteLine("Please pick a valid choice");
+                }
 
 
-
-
-                shopchoice = shopchoice - 1;
-
-                if (shopchoice == -1)
+                else if (shopchoice == -1)
                 {
                     validchoice = true;
                 }
@@ -187,14 +190,17 @@ namespace rpg_shop_simulator_assement
             while (!validchoice)
             {
                 Console.WriteLine("Type in the number for the item you want");
-                Console.WriteLine("Type in 0 to exit");
+                Console.WriteLine("Type in -1 to exit");
 
+                
+                bool  validInput = Int32.TryParse(Console.ReadLine(), out shopchoice);
+                
+                if (validInput == false)
+                {
+                    Console.WriteLine("Please pick a valid choice");
+                }
 
-                shopchoice = Convert.ToInt32(Console.ReadLine());
-                shopchoice = shopchoice - 1;
-                
-                
-                if(shopchoice == -1)
+                else if (shopchoice == -1)
                 {
                     validchoice = true;
                 }
@@ -219,6 +225,9 @@ namespace rpg_shop_simulator_assement
                 {
                     Console.WriteLine("Please pick a valid choice");
                 }
+                
+                
+               
             }
         }
         void Cheats()
